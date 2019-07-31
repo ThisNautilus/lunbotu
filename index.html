@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>轮播图</title>
+    <!-- <link rel="stylesheet" href="./css/style.css"> -->
+    <!-- <script src="./js/main.js"></script> -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .img-container {
+            margin: 100px auto;
+            width: 683px;
+            height: 384px;
+            position: relative;
+        }
+        
+        .slider .item {
+            position: absolute;
+        }
+        
+        .icon {
+            width: 30px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 30px;
+            line-height: 40px;
+            position: absolute;
+            top: 50%;
+            z-index: 999;
+            cursor: pointer;
+        }
+        
+        #goPre {
+            margin-top: -20px;
+        }
+        
+        #goNext {
+            right: 0;
+            margin-top: -20px;
+        }
+        
+        .active {
+            z-index: 99;
+        }
+        
+        .pointList {
+            list-style: none;
+        }
+        
+        .point {
+            width: 10px;
+            height: 10px;
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="img-container">
+        <ul class="slider">
+            <li><img src="./images/s1.jpg" class="item"></li>
+            <li><img src="./images/s2.jpg" class="item"></li>
+            <li><img src="./images/s3.jpg" class="item"></li>
+            <li><img src="./images/s4.jpg" class="item"></li>
+            <li><img src="./images/s5.jpg" class="item"></li>
+        </ul>
+        <div class="icon" id="goPre">&lt;</div>
+        <div class="icon" id="goNext">&gt;</div>
+    </div>
+
+    <script>
+        var items = document.getElementsByClassName("item");
+        var goPreBtn = document.getElementById("goPre");
+        var goNextBtn = document.getElementById("goNext");
+        var index = 0;
+
+        function clearActive() {
+            for (var i = 0; i < items.length; i++) {
+                items[i].className = "item";
+            }
+        }
+
+        function getIndex() {
+            clearActive();
+            items[index].className = "item active";
+        }
+
+        function goNext() {
+            if (index < 4) {
+                index++;
+            } else {
+                index = 0;
+            }
+            getIndex();
+        }
+
+        function goPre() {
+            if (index == 0) {
+                index = 4;
+            } else {
+                index--;
+            }
+            getIndex();
+        }
+        goNextBtn.onclick = function() {
+            goNext();
+        }
+        goPreBtn.addEventListener("click", function() {
+            goPre();
+        })
+    </script>
+
+</body>
+
+</html>
