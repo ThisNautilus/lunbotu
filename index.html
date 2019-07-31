@@ -33,6 +33,7 @@
             color: rgba(255, 255, 255, 0.9);
             font-size: 30px;
             line-height: 40px;
+            text-align: center;
             position: absolute;
             top: 50%;
             z-index: 999;
@@ -51,16 +52,6 @@
         .active {
             z-index: 99;
         }
-        
-        .pointList {
-            list-style: none;
-        }
-        
-        .point {
-            width: 10px;
-            height: 10px;
-            background-color: orange;
-        }
     </style>
 </head>
 
@@ -75,23 +66,31 @@
         </ul>
         <div class="icon" id="goPre">&lt;</div>
         <div class="icon" id="goNext">&gt;</div>
+
     </div>
+
 
     <script>
         var items = document.getElementsByClassName("item");
         var goPreBtn = document.getElementById("goPre");
         var goNextBtn = document.getElementById("goNext");
+
+        var points = document.getElementsByClassName("point")
         var index = 0;
 
         function clearActive() {
             for (var i = 0; i < items.length; i++) {
                 items[i].className = "item";
             }
+            for (var i = 0; i < points.length; i++) {
+                points[i].className = 'point';
+            }
         }
 
         function getIndex() {
             clearActive();
             items[index].className = "item active";
+            points[index].className = "point now";
         }
 
         function goNext() {
