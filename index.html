@@ -82,15 +82,11 @@
             for (var i = 0; i < items.length; i++) {
                 items[i].className = "item";
             }
-            for (var i = 0; i < points.length; i++) {
-                points[i].className = 'point';
-            }
         }
 
         function getIndex() {
             clearActive();
             items[index].className = "item active";
-            points[index].className = "point now";
         }
 
         function goNext() {
