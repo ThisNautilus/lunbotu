@@ -20,7 +20,7 @@
             width: 683px;
             height: 384px;
             box-sizing: content-box;
-            border: 1px solid black;
+            /* border: 1px solid black; */
             margin: 50px auto;
             position: relative;
         }
@@ -31,18 +31,25 @@
         }
         /* 上一个下一个样式 */
         
-        .icon {
+        .img-container .icon {
             width: 30px;
+            height: 40px;
             line-height: 40px;
-            font-size: 40px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, .3);
             color: yellow;
             font-weight: bold;
+            opacity: 0;
             cursor: pointer;
-            float: left;
+            /* float: left; */
             position: absolute;
             top: 50%;
             margin-top: -20px;
             z-index: 999;
+        }
+        
+        .img-container:hover .icon {
+            opacity: 1;
         }
         
         .icon:hover {
@@ -58,9 +65,12 @@
         }
         /* 设置小圆点父盒子样式 */
         
-        .pointList {
+        .img-container .pointList {
             width: 100px;
             height: 16px;
+            border-radius: 10px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, .3);
             position: absolute;
             left: 50%;
             bottom: 20px;
@@ -74,8 +84,8 @@
             height: 10px;
             background-color: red;
             border-radius: 100%;
-            float: left;
-            margin-right: 10px;
+            display: inline-block;
+            margin: 3px;
             cursor: pointer;
         }
         /* 设置运动样式 */
