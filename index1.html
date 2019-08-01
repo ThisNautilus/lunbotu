@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>轮播图</title>
+    <!-- <link rel="stylesheet" href="./css/style.css"> -->
+    <!-- <script src="./js/main.js"></script> -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        /* 父盒子样式 */
+        
+        .img-container {
+            width: 683px;
+            height: 384px;
+            /* box-sizing: content-box; */
+            /* border: 1px solid black; */
+            margin: 50px auto;
+            position: relative;
+        }
+        /* 设置图片样式 */
+        
+        .item {
+            position: absolute;
+        }
+        /* 上一个下一个样式 */
+        
+        .icon {
+            width: 30px;
+            height: 40px;
+            line-height: 40px;
+            background-color: #eee;
+            text-align: center;
+            font-size: 30px;
+            color: yellow;
+            font-weight: bold;
+            cursor: pointer;
+            float: left;
+            position: absolute;
+            top: 50%;
+            margin-top: -20px;
+            z-index: 999;
+        }
+        
+        .icon:hover {
+            color: blue;
+        }
+        
+        #goPre {
+            left: 0;
+        }
+        
+        #goNext {
+            right: 0;
+        }
+        /* 设置小圆点父盒子样式 */
+        
+        .pointList {
+            width: 100px;
+            height: 16px;
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            /* margin-left: -50px; */
+            z-index: 999;
+        }
+        /* 导航小圆点样式 */
+        
+        .point {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(201, 221, 24, 0.8);
+            border-radius: 100%;
+            float: left;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        /* 设置运动样式 */
+        
+        .current {
+            z-index: 66;
+        }
+        
+        .active {
+            background-color: rgba(240, 108, 20, 0.815);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="img-container" id="container">
+        <ul class="slider">
+            <li><img src="./images/s1.jpg" class="item current"></li>
+            <li><img src="./images/s2.jpg" class="item"></li>
+            <li><img src="./images/s3.jpg" class="item"></li>
+            <li><img src="./images/s4.jpg" class="item"></li>
+            <li><img src="./images/s5.jpg" class="item"></li>
+        </ul> img-index="1"
+        <!-- 导航小圆点 -->
+        <ul class="pointList">
+            <li class="point active" pointIndex="0"></li>
+            <li class="point" pointIndex="1"></li>
+            <li class="point" pointIndex="2"></li>
+            <li class="point" pointIndex="3"></li>
+            <li class="point" pointIndex="4"></li>
+        </ul>
+        <!-- 上一个下一个图标 -->
+        <div class="icon" id="goPre">&lt;</div>
+        <div class="icon" id="goNext">&gt;</div>
+    </div>
+
+
+    <script>
+        var items = document.getElementsByClassName("item");
+        var goNextBtn = document.getElementById("goNext");
+        var goPreBtn = document.getElementById("goPre");
+        var points = document.getElementsByClassName("point");
+        var container = document.getElementById("container");
+        var index = 0;
+        // 下一张
+        goNextBtn.addEventListener("click", function() {
+                clearInterval(timer);
+                goNext();
+                timer = setInterval(timeFunc, 2000);
+            })
+            // 上一张
+        goPreBtn.addEventListener("click", function() {
+                clearInterval(timer);
+                goPre();
+                timer = setInterval(timeFunc, 2000);
+            })
+            // 跳转至点击的那一张
+            // 循环为每一个点注册事件
+        for (let i = 0; i < points.length; i++) {
+            points[i].addEventListener("click", function() {
+                var pointIndex = this.getAttribute('pointIndex');
+                console.log(pointIndex);
+                index = pointIndex;
+                // 清除定时器
+                clearInterval(timer);
+                cleanCurrent();
+                items[index].className = "item current";
+                points[index].className = "point active";
+                // 重启定时器
+                timer = setInterval(timeFunc, 2000)
+            })
+        }
+
+        // 自动循环播放
+        var timer = setInterval(timeFunc, 2000)
+
+
+        // 函数封装
+        // 清除current类
+        function cleanCurrent() {
+            for (var i = 0; i < items.length; i++) {
+                items[i].className = "item";
+                points[i].className = "point";
+            }
+        }
+        // 下一张
+        function goNext() {
+            cleanCurrent();
+            if (index < 4) {
+                index++;
+            } else {
+                index = 0;
+            }
+            items[index].className = "item current";
+            points[index].className = "point active";
+        }
+        // 下一张
+        function goPre() {
+            cleanCurrent();
+            if (index == 0) {
+                index = 4;
+            } else {
+                index--;
+            }
+            items[index].className = "item current";
+            points[index].className = "point active";
+        }
+        // 定时器函数
+        function timeFunc() {
+            if (index < 4) {
+                index++;
+            } else {
+                index = 0;
+            }
+            cleanCurrent();
+            items[index].className = "item current";
+            points[index].className = "point active";
+        }
+    </script>
+
+</body>
+
+</html>
